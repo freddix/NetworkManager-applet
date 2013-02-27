@@ -2,15 +2,16 @@
 
 Summary:	NetworkManager applet for GNOME
 Name:		NetworkManager-applet
-Version:	0.9.6.4
+Version:	0.9.8.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/%{orgname}-%{version}.tar.xz
-# Source0-md5:	8750d83a1151f5f9b0edd2ffcd4e8fc6
+# Source0-md5:	531ce56c51ec86c5d2dc4cbe58649583
 BuildRequires:	NetworkManager-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gnome-bluetooth-devel
+BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk+-devel
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	libnotify-devel
@@ -104,17 +105,21 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libexecdir}/nm-applet-migration-tool
 %{_datadir}/GConf/gsettings/nm-applet.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
+/usr/share/man/man1/nm-applet.1.gz
+/usr/share/man/man1/nm-connection-editor.1.gz
 
 %files libs
 %defattr(644,root,root,755)
 %attr(755,root,root) %ghost %{_libdir}/libnm-gtk.so.?
 %attr(755,root,root) %{_libdir}/libnm-gtk.so.*.*.*
+%{_libdir}/girepository-1.0/NMGtk-1.0.typelib
 %{_datadir}/libnm-gtk
 
 %files devel
 %defattr(644,root,root,755)
 %{_includedir}/libnm-gtk
 %{_libdir}/libnm-gtk.so
+%{_datadir}/gir-1.0/NMGtk-1.0.gir
 %{_pkgconfigdir}/libnm-gtk.pc
 
 %files -n gnome-bluetooth-plugin-network-manager
