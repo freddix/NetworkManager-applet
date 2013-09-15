@@ -2,12 +2,12 @@
 
 Summary:	NetworkManager applet for GNOME
 Name:		NetworkManager-applet
-Version:	0.9.8.2
+Version:	0.9.8.4
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/%{orgname}-%{version}.tar.xz
-# Source0-md5:	1dbece6519f32aa43a746abd96181aa0
+# Source0-md5:	4eedec85af9becc1e178e5cbed1f30e4
 BuildRequires:	NetworkManager-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gnome-bluetooth-devel
