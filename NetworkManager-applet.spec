@@ -3,7 +3,7 @@
 Summary:	NetworkManager applet for GNOME
 Name:		NetworkManager-applet
 Version:	0.9.8.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/%{orgname}-%{version}.tar.xz
@@ -12,7 +12,7 @@ BuildRequires:	NetworkManager-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gnome-bluetooth-devel
 BuildRequires:	gobject-introspection-devel
-BuildRequires:	gtk+-devel
+BuildRequires:	gtk+3-devel
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	libnotify-devel
 BuildRequires:	pkg-config
@@ -65,8 +65,9 @@ GNOME Bluetooth plugin.
 %{__autoconf}
 %{__automake}
 %configure \
-	--disable-static	\
-	--enable-more-warnings=yes
+	--disable-migration		\
+	--disable-schemas-compile	\
+	--disable-static
 %{__make}
 
 %install
@@ -74,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_datadir}/GConf/gsettings/*.convert
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/{*,gnome-bluetooth/plugins/*}.la
 
 %find_lang %{name} --with-gnome --all-name
 
@@ -102,11 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_iconsdir}/hicolor/*/apps/*.png
 %{_iconsdir}/hicolor/*/apps/*.svg
 %{_sysconfdir}/xdg/autostart/*.desktop
-%attr(755,root,root) %{_libexecdir}/nm-applet-migration-tool
-%{_datadir}/GConf/gsettings/nm-applet.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.nm-applet.gschema.xml
-/usr/share/man/man1/nm-applet.1.gz
-/usr/share/man/man1/nm-connection-editor.1.gz
+%{_mandir}/man1/nm-applet.1*
+%{_mandir}/man1/nm-connection-editor.1*
 
 %files libs
 %defattr(644,root,root,755)
