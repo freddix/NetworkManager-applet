@@ -2,12 +2,12 @@
 
 Summary:	NetworkManager applet for GNOME
 Name:		NetworkManager-applet
-Version:	0.9.8.9
+Version:	0.9.8.10
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/%{orgname}-%{version}.tar.xz
-# Source0-md5:	f789da3c70127bc323f04d61bff89cf9
+# Source0-md5:	5148348c139229c6a753f815f3f11e1c
 BuildRequires:	NetworkManager-devel
 BuildRequires:	dbus-glib-devel
 BuildRequires:	gnome-bluetooth-devel
@@ -77,7 +77,9 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/GConf/gsettings/*.convert
+%if 0
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/{*,gnome-bluetooth/plugins/*}.la
+%endif
 
 %find_lang %{name} --with-gnome --all-name
 
@@ -124,7 +126,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/gir-1.0/NMGtk-1.0.gir
 %{_pkgconfigdir}/libnm-gtk.pc
 
+%if 0
 %files -n gnome-bluetooth-plugin-network-manager
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/gnome-bluetooth/plugins/libnma.so
+%endif
 
