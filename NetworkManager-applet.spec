@@ -2,17 +2,18 @@
 
 Summary:	NetworkManager applet for GNOME
 Name:		NetworkManager-applet
-Version:	0.9.8.10
+Version:	0.9.10.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	ftp://ftp.gnome.org/pub/GNOME/sources/network-manager-applet/0.9/%{orgname}-%{version}.tar.xz
-# Source0-md5:	5148348c139229c6a753f815f3f11e1c
+# Source0-md5:	6c23e6d208f6e78f2ecb7d0a03ddd03d
 BuildRequires:	NetworkManager-devel
 BuildRequires:	dbus-glib-devel
-BuildRequires:	gnome-bluetooth-devel
+#BuildRequires:	gnome-bluetooth-devel
 BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk+3-devel
+BuildRequires:	iso-codes
 BuildRequires:	libgnome-keyring-devel
 BuildRequires:	libnotify-devel
 BuildRequires:	pkg-config
@@ -67,7 +68,9 @@ GNOME Bluetooth plugin.
 %configure \
 	--disable-migration		\
 	--disable-schemas-compile	\
-	--disable-static
+	--disable-silent-rules		\
+	--disable-static		\
+	--with-modem-manager-1
 %{__make}
 
 %install
@@ -77,9 +80,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_datadir}/GConf/gsettings/*.convert
-%if 0
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/{*,gnome-bluetooth/plugins/*}.la
-%endif
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %find_lang %{name} --with-gnome --all-name
 
